@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="780" height="680" viewBox="0 0 780 680" font-family="sans-serif">
+<rect x="0" y="0" width="780" height="680" fill="#ffffff"/>
+<text x="50" y="26" font-size="18" font-weight="bold">Layout map — oaa656</text>
+<line x1="455.0" y1="300.0" x2="285.0" y2="300.0" stroke="#555555" stroke-width="2"/>
+<path d="M 455.0 300.0 Q 540.0 340.0 625.0 300.0" fill="none" stroke="#9c27b0" stroke-width="2" stroke-dasharray="6,4"/>
+<line x1="285.0" y1="300.0" x2="285.0" y2="140.0" stroke="#555555" stroke-width="2"/>
+<path d="M 285.0 300.0 Q 455.0 340.0 625.0 300.0" fill="none" stroke="#9c27b0" stroke-width="2" stroke-dasharray="6,4"/>
+<line x1="285.0" y1="300.0" x2="115.0" y2="300.0" stroke="#555555" stroke-width="2"/>
+<path d="M 625.0 300.0 Q 437.9681185468048 343.80725191196024 285.0 460.0" fill="none" stroke="#9c27b0" stroke-width="2" stroke-dasharray="6,4"/>
+<rect x="390.0" y="250.0" width="130" height="100" rx="10" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/>
+<text x="455.0" y="272.0" font-size="16" font-weight="bold" text-anchor="middle">R0</text>
+<rect x="437.5" y="282.0" width="35.0" height="16" rx="4" fill="#2e7d32"/>
+<text x="455.0" y="295.0" font-size="9" fill="#ffffff" text-anchor="middle">START</text>
+<rect x="220.0" y="250.0" width="130" height="100" rx="10" fill="#eef3fb" stroke="#5b7fb5" stroke-width="2"/>
+<text x="285.0" y="272.0" font-size="16" font-weight="bold" text-anchor="middle">R1</text>
+<rect x="240.5" y="282.0" width="89.0" height="16" rx="4" fill="#f9a825"/>
+<text x="285.0" y="295.0" font-size="9" fill="#000000" text-anchor="middle">HAS ITEM_SLOT_0</text>
+<rect x="560.0" y="250.0" width="130" height="100" rx="10" fill="#eef3fb" stroke="#5b7fb5" stroke-width="2"/>
+<text x="625.0" y="272.0" font-size="16" font-weight="bold" text-anchor="middle">R2</text>
+<rect x="610.2" y="282.0" width="29.6" height="16" rx="4" fill="#f9a825"/>
+<text x="625.0" y="295.0" font-size="9" fill="#000000" text-anchor="middle">ITEM</text>
+<rect x="612.9" y="300.0" width="24.200000000000003" height="16" rx="4" fill="#1565c0"/>
+<text x="625.0" y="313.0" font-size="9" fill="#ffffff" text-anchor="middle">NPC</text>
+<rect x="220.0" y="90.0" width="130" height="100" rx="10" fill="#fdecea" stroke="#c62828" stroke-width="2"/>
+<text x="285.0" y="112.0" font-size="16" font-weight="bold" text-anchor="middle">R3</text>
+<rect x="264.8" y="122.0" width="40.400000000000006" height="16" rx="4" fill="#c62828"/>
+<text x="285.0" y="135.0" font-size="9" fill="#ffffff" text-anchor="middle">LOCKED</text>
+<rect x="235.1" y="140.0" width="99.80000000000001" height="16" rx="4" fill="#c62828"/>
+<text x="285.0" y="153.0" font-size="9" fill="#ffffff" text-anchor="middle">needs ITEM_SLOT_1</text>
+<rect x="50.0" y="250.0" width="130" height="100" rx="10" fill="#fdecea" stroke="#c62828" stroke-width="2"/>
+<text x="115.0" y="272.0" font-size="16" font-weight="bold" text-anchor="middle">R4</text>
+<rect x="94.8" y="282.0" width="40.400000000000006" height="16" rx="4" fill="#c62828"/>
+<text x="115.0" y="295.0" font-size="9" fill="#ffffff" text-anchor="middle">LOCKED</text>
+<rect x="65.1" y="300.0" width="99.80000000000001" height="16" rx="4" fill="#c62828"/>
+<text x="115.0" y="313.0" font-size="9" fill="#ffffff" text-anchor="middle">needs ITEM_SLOT_0</text>
+<rect x="220.0" y="410.0" width="130" height="100" rx="10" fill="#eef3fb" stroke="#5b7fb5" stroke-width="2"/>
+<text x="285.0" y="432.0" font-size="16" font-weight="bold" text-anchor="middle">R5</text>
+<rect x="240.5" y="442.0" width="89.0" height="16" rx="4" fill="#f9a825"/>
+<text x="285.0" y="455.0" font-size="9" fill="#000000" text-anchor="middle">HAS ITEM_SLOT_1</text>
+<text x="525.5758587716775" y="333.21216883373063" font-size="10" fill="#9c27b0" text-anchor="middle">EAST</text>
+<text x="554.4241412283225" y="333.21216883373063" font-size="10" fill="#9c27b0" text-anchor="middle">SOUTH</text>
+<text x="360.9265391300189" y="317.8650680305927" font-size="10" fill="#9c27b0" text-anchor="middle">SOUTH</text>
+<text x="549.0734608699811" y="317.8650680305927" font-size="10" fill="#9c27b0" text-anchor="middle">NORTH</text>
+<text x="549.0553714489118" y="317.7880126556409" font-size="10" fill="#9c27b0" text-anchor="middle">WEST</text>
+<text x="347.11297695843956" y="412.8197277099808" font-size="10" fill="#9c27b0" text-anchor="middle">EAST</text>
+<line x1="50" y1="640.0" x2="90" y2="640.0" stroke="#555555" stroke-width="2"/>
+<text x="96" y="644.0" font-size="11">direct exit</text>
+<path d="M 220 640.0 Q 240 625.0 260 640.0" fill="none" stroke="#9c27b0" stroke-width="2" stroke-dasharray="6,4"/>
+<text x="266" y="644.0" font-size="11">non-adjacent exit (direction labelled at each end)</text>
+<text x="50" y="662.0" font-size="11">Boxes: green = start, red border = locked, chips = LOCKED/HAS/ITEM/NPC</text>
+</svg>
