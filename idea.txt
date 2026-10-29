@@ -1,1 +1,56 @@
-idea...
+*OOP Map Game Idea*
+
+Synopsis: You're lost in your friend's new house at a sleepover and you need to find your way back to your room.
+Objective: Get back to your bedroom (R3) before 3am.
+
+*Rooms*
+R0: kitchen
+- Start
+
+R1: hallway
+- Stool here
+- Needed to open bathroom door
+
+R2: living room (flashlight here)
+- Watch here
+- Cat NPC here
+- Guides you to room five
+
+R3: bedroom (needs key to unlock)
+- End
+- Game finish upon going to sleep
+
+R4: bathroom (needs stool to unlock)
+- Guiding message to R2 if visited first
+- Optional to visit
+
+R5: study (bedroom key here)
+- Bedroom key is in a desk here
+
+
+*Items*
+ITEM: watch
+- Used to check time
+ITEM_SLOT_0: stool
+- Used to open R4
+ITEM_SLOT_1: bedroom key
+- Used to open R3
+NPC: talking cat
+- Guides you to R5
+
+
+*Mechanisms*
+- Message upon trying to open a locked door
+- Command to check time on watch so player can see how long they have
+
+
+*Other ideas*
+- fnaf 4
+- paradise chateau
+- haunted castle
+- find the somethings
+- cramp simulator
+- sister location
+- looking for a lost item
+- tattletail
+- kitchen/baking
