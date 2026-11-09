@@ -39,7 +39,7 @@ public class Item {
         return type;
     }
 
-    public String getTarget() {
+    public Object getTarget() {
         return target;
     }
 

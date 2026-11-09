@@ -7,8 +7,9 @@ public class Room {
     private String name;
     private String description;
     private ArrayList<String> exits;
-    private ArrayList<String> items;
-    private ArrayList<String> npcs;
+    // each room only has 1 item/npc max, so they dont need to be arrays
+    private Item item;
+    private Npc npc;
     // ^^ arraylists for variable size
     
     
@@ -22,14 +23,15 @@ public class Room {
     }
 
     public void addItem(Item item) {
-        items.add(item);
+        this.item = item;
     }
 
     public void addNpc(Npc npc) {
-        npcs.add(npc);
+        this.npc = npc;
     }
 
     // idk how to do these
+    // todo: finish these!
     public String getName() {
         return name;
     }
@@ -39,29 +41,31 @@ public class Room {
     }
     
     public Exit getExit(String direction) {
-        
+        for (Exit exit : exits) {
+            if (exit.getName() == direction) {
+                return exit;
+            }
+        }
     }
 
-    public Item getItem( ) {
-        
+    public Item getItem() {
+        return item;
     }
 
     public Npc getNpc() {
-        
+        return npc;
     }
 
     public String toString() { 
         String format = "Name: " + name + "/nDescription: " + description + "Exits: ";
         for (String exit : exits) {
-            format += (exit.name + ", "); // maybe change later
+            format += (exit.getName() + ", "); 
         }
-        format = format.substring(0, format.length() - 2) + "\nItems: ";
-        for (String item : items) {
-            format += (item.name + ", ");
+        if (item) {
+            format = format.substring(0, format.length() - 2) + "\nItem: " + item.getName();    
         }
-        format = format.substring(0, format.length() - 2) + "\nNPCs: ";
-        for (String npc : npcs) {
-            format += (npc.name + ", ");
+        if (npc) {
+            format = format.substring(0, format.length() - 2) + "\nNPC: " + npc.getName();
         }
         return format.substring(format.length() - 2);
     }

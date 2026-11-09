@@ -10,39 +10,22 @@ public class Parser {
 
     public Parser() {}
 
-    public String[] LEGALCOMMANDS = {"move", "look", "take", "get", "inventory", "use", 
+    
+    // command constants
+    public static final String[] LEGALCOMMANDS = new String[]{"move", "look", "take", "get", "inventory", "use", 
                                   "activate", "talk", "score", "help", "quit", "exit"};
-    public String[] LEGALCOMMANDSFULL = {"move <direction>", "look", "look/take <item>", "get <item>", "inventory",
+    public static final String[] LEGALCOMMANDSFULL = {"move <direction>", "look", "look/take <item>", "get <item>", "inventory",
                                          "use/activate <item>", "talk/talk to <npc>", "score", "help", "quit/exit"};
 
-    Map map;
-    String input;
-
+    
     public String parse(Map map, String input) {
         // TODO: work out which command was entered, execute it and return the result        
 
-        // commands todo:
-        // move <direction>: move to different Room
-        // look: display information about current Room
-        // look <item>: display information of an Item in the room
-        // take OR get <item>: take an Item from a Room and add to Inventory
-        // inventory: view names of Items in Inventory
-        // use OR activate <item>: use an Item in a Room to change something
-            // ^^ needs reply text.
-        // talk OR talk to <npc>: talk to an NPC
-            // ^^ needs reply text.
-        // score: display current score
-        // help: display a help message
-        // quit OR exit: exit the game
-        // return a String based on the result of the commands
-        // must be case insensitive
-        // handle illegal/misspelled commands gracefully
+        Player player = map.getPlayer();
+        Room currentRoom = map.getCurrentRoom();
+        Score score = map.getCurrentScore();
         
-        Player player = map.getPlayer;
-        Room currentRoom = map.getCurrentRoom;
-        Score score = map.getCurrentScore;
-        
-        String regex = "[s]"; 
+        String regex = "[\\s+]"; 
         String[] commandWords = input.split(regex);
 
         // if first command word in acceptable list: check length of command
@@ -59,10 +42,10 @@ public class Parser {
                         player.showInventory();
                         break;
                     case "score":
-                        System.out.printf("Your current score is (%d)%n", score.getCurrentScore())
+                        System.out.printf("Your current score is (%d)%n", score.getCurrentScore());
                         break;
                     case "help": // should help messages be specific to rooms? a possible attribute to add...
-                        help()
+                        help();
                         break;
                     // case "quit":
                     // case "exit:" // fall through for ||
@@ -72,6 +55,7 @@ public class Parser {
                 
             // two word commands
             } else if (commandWords.length == 2) { 
+                // ^^ .attribute for arrays, .method() for strings!
                 switch(first) {
                     case "move":
                         // run move
@@ -83,7 +67,7 @@ public class Parser {
                     case "get":
                         // run take
                         break;
-                    case "use":
+                    case "use": // fall through!
                     case "activate":
                         // run use
                         break;
@@ -91,8 +75,16 @@ public class Parser {
             
             // only valid three word command is talk to npc
             } else if (commandWords.length == 3) {
-                // run talk to npc
-            }
+                // talk to npc
+                if (currentRoom.getName() == "R2") { // change from hardcode later
+                    System.out.println("A large black cat, resting in a cosy cat bed. It looks up at you as you appraoch.");
+                    sleep();
+                    for (String line : currentRoom.npc.getDia()) {
+                        System.out.printLn(line);
+                        sleep();
+                    }
+                }
+                
             // any other length is invalid
             } else {
                 invalidCommand();
@@ -100,7 +92,6 @@ public class Parser {
         } else { // misspelling or invalid: reject output
             invalidCommand();
         }
-        
         return null;
     }
 
@@ -114,9 +105,29 @@ public class Parser {
     public void help() {
         System.out.println("Enter a command to continue the game. Here's a list of valid commands:");
         for (String command : LEGALCOMMANDSFULL) {
-            System.out.println(command); // ^^ for x in array
+            System.out.println(command);
         }
     }
 
+    public void sleep() {
+        Thread.sleep(1000);
+    }
 
 }
+
+// commands todo:
+// move <direction>: move to different Room
+// look: display information about current Room
+// look <item>: display information of an Item in the room
+// take OR get <item>: take an Item from a Room and add to Inventory
+// inventory: view names of Items in Inventory
+// use OR activate <item>: use an Item in a Room to change something
+    // ^^ needs reply text.
+// talk OR talk to <npc>: talk to an NPC
+    // ^^ needs reply text.
+// score: display current score
+// help: display a help message
+// quit OR exit: exit the game
+// return a String based on the result of the commands
+// must be case insensitive
+// handle illegal/misspelled commands gracefully

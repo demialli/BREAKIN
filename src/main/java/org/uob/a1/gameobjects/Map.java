@@ -32,6 +32,7 @@ public class Map {
         R2.addExit(new Exit("NORTH", "R2", "R1", false));
         R2.addExit(new Exit("SOUTH", "R2", "R0", false));
         R2.addExit(new Exit("WEST", "R2", "R5", false));
+        R2.addNpc(new Npc("Cat", ["You're trying to get back to your room?", "You're close, but I think you've gone in the opposite direction.", "There might be something that can help in the next room over."]));
         
         Room R3 = new Room("R3", "Your bedroom, lit with fairy lights. It's past your bedtime.");
         R3.addExit(new Exit("SOUTH", "R3", "R1", false));
@@ -42,7 +43,7 @@ public class Map {
         Room R5 = new Room("R5", "A cosy study. You see a key glinting on a hook by the door.");
         R5.addExit(new Exit("EAST", "R5", "R2", false));
         
-        Room[] rooms = new Room{R0, R1, R2, R3, R4, R5}; // is this necessary?
+        Room[] rooms = new Room[]{R0, R1, R2, R3, R4, R5}; // is this necessary?
         // ^^ have to change premise... why would your bedroom be locked??
         // maybe a hotel or smth :/
 
