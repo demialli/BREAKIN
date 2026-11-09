@@ -15,10 +15,11 @@ public class Parser {
     public String[] LEGALCOMMANDSFULL = {"move <direction>", "look", "look/take <item>", "get <item>", "inventory",
                                          "use/activate <item>", "talk/talk to <npc>", "score", "help", "quit/exit"};
 
+    Map map;
+    String input;
+
     public String parse(Map map, String input) {
-        // TODO: work out which command was entered, execute it and return the result
-        Scanner scanner = new Scanner(System.in); 
-        
+        // TODO: work out which command was entered, execute it and return the result        
 
         // commands todo:
         // move <direction>: move to different Room
@@ -36,13 +37,15 @@ public class Parser {
         // return a String based on the result of the commands
         // must be case insensitive
         // handle illegal/misspelled commands gracefully
+        
+        Player player = map.getPlayer;
+        Room currentRoom = map.getCurrentRoom;
+        Score score = map.getCurrentScore;
+        
+        String regex = "[s]"; 
+        String[] commandWords = input.split(regex);
 
-        String command = scanner.nextLine().toLower();
-        String regex = "[s]"; // from w3schools
-        String[] commandWords = command.split(regex);
-
-
-        // first command word in acceptable list: check length of command
+        // if first command word in acceptable list: check length of command
         if (Arrays.asList(LEGALCOMMANDS).contains(commandWords[0])) {
             String first = commandWords[0];
 
@@ -50,7 +53,7 @@ public class Parser {
             if (commandWords.length == 1) {
                 switch(first) {
                     case "look":
-                        // run look
+                        System.out.println(currentRoom.getDesc());
                         break;
                     case "inventory":
                         // run inventory
@@ -106,4 +109,6 @@ public class Parser {
             System.out.println(command); // ^^ for x in array
         }
     }
+
+
 }

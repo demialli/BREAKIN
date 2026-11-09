@@ -30,6 +30,14 @@ public class Room {
     }
 
     // idk how to do these
+    public String getName() {
+        return name;
+    }
+
+    public String getDesc() {
+        return description;
+    }
+    
     public Exit getExit(String direction) {
         
     }

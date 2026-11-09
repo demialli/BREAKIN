@@ -1,4 +1,4 @@
-// this one is pretty much one!!
+// this one is pretty much done!!
 
 package org.uob.a1.gameobjects;
 

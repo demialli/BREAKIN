@@ -11,7 +11,7 @@ R1: hallway
 - Stool here
 - Needed to open bathroom door
 
-R2: living room (flashlight here)
+R2: living room (watch here)
 - Watch here
 - Cat NPC here
 - Guides you to room five
