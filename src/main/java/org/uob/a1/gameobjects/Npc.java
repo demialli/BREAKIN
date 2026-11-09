@@ -1,8 +1,14 @@
+// this one is pretty much one!!
+
 package org.uob.a1.gameobjects;
 
 public class Npc {
 
+    private String name;
+    private String dialogue;
+    
     public Npc(String name, String dialogue) {
-        // TODO
+        this.name = name;
+        this.dialogue = dialogue;
     }
 }

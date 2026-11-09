@@ -33,7 +33,7 @@ ITEM: watch
 - Used to check time
 ITEM_SLOT_0: stool
 - Used to open R4
-ITEM_SLOT_1: bedroom key
+ITEM_SLOT_1: key
 - Used to open R3
 NPC: talking cat
 - Guides you to R5

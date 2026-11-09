@@ -1,3 +1,5 @@
+// todo: pass in command calls
+
 package org.uob.a1.parser;
 
 import org.uob.a1.gameobjects.Map;
@@ -42,16 +44,58 @@ public class Parser {
 
         // first command word in acceptable list: check length of command
         if (Arrays.asList(LEGALCOMMANDS).contains(commandWords[0])) {
-            // continue here
+            String first = commandWords[0];
+
+            // one word commands
+            if (commandWords.length == 1) {
+                switch(first) {
+                    case "look":
+                        // run look
+                        break;
+                    case "inventory":
+                        // run inventory
+                        break;
+                    case "score":
+                        // run score
+                        break;
+                    case "help":
+                        // run help
+                        break;
+                    case "quit":
+                    case "exit:" // fall through for ||
+                        break;
+                }
+                
+            // two word commands
+            } else if (commandWords.length == 2) { 
+                switch(first) {
+                    case "move":
+                        // run move
+                        break;
+                    case "look":
+                        // run loop
+                        break;
+                    case "take":
+                    case "get":
+                        // run take
+                        break;
+                    case "use":
+                    case "activate":
+                        // run use
+                        break;
+                }
+            
+            // only valid three word command is talk to npc
+            } else if (commandWords.length == 3) {
+                // run talk to npc
+            }
+            // any other length is invalid
+            } else {
+                invalidCommand();
+            }
         } else { // misspelling or invalid: reject output
             invalidCommand();
         }
-        
-        
-
-
-
-
         
         return null;
     }

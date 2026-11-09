@@ -1,3 +1,5 @@
+// todo: everything
+
 package org.uob.a1.gameobjects;
 
 public class Map {
@@ -9,18 +11,22 @@ public class Map {
     public Map() {
         // TODO: set up the rooms based on map/layout.txt
     }
+    
 
+    // getters
     public boolean isRunning() {
         // TODO
         return false;
     }
 
-    public void setRunning(boolean running) {
-        // TODO
-    }
-
     public Room getCurrentRoom() {
         // TODO
         return null;
+    }
+    
+
+    // setters
+    public void setRunning(boolean running) {
+        // TODO
     }
 }
