@@ -15,6 +15,7 @@ public class Main {
 
         System.out.println("intro (change later)");
         System.out.print("What will you do? >> ");
+        
         while (true) {
             String input = scanner.nextLine().toLower();
             

@@ -56,17 +56,18 @@ public class Parser {
                         System.out.println(currentRoom.getDesc());
                         break;
                     case "inventory":
-                        // run inventory
+                        player.showInventory();
                         break;
                     case "score":
-                        // run score
+                        System.out.printf("Your current score is (%d)%n", score.getCurrentScore())
                         break;
-                    case "help":
-                        // run help
+                    case "help": // should help messages be specific to rooms? a possible attribute to add...
+                        help()
                         break;
-                    case "quit":
-                    case "exit:" // fall through for ||
-                        break;
+                    // case "quit":
+                    // case "exit:" // fall through for ||
+                        // break;
+                    // ^^ these are handled in main
                 }
                 
             // two word commands
@@ -105,6 +106,13 @@ public class Parser {
 
     public void invalidCommand() {
         System.out.println("Sorry, that's not a valid command. Here's a list of valid commands:");
+        for (String command : LEGALCOMMANDSFULL) {
+            System.out.println(command); // ^^ for x in array
+        }
+    }
+
+    public void help() {
+        System.out.println("Enter a command to continue the game. Here's a list of valid commands:");
         for (String command : LEGALCOMMANDSFULL) {
             System.out.println(command); // ^^ for x in array
         }

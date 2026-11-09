@@ -19,5 +19,10 @@ public class Score {
     public void updateUnlock() {
         currentScore += unlockScore;
     }
+
+    // getter
+    public int getCurrentScore() {
+        return currentScore;
+    }
     
 }
