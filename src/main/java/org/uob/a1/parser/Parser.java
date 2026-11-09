@@ -18,8 +18,9 @@ public class Parser {
                                          "use/activate <item>", "talk/talk to <npc>", "score", "help", "quit/exit"};
 
     
-    public String parse(Map map, String input) {
-        // TODO: work out which command was entered, execute it and return the result        
+    public static String parse(Map map, String input) { // needs to be static... i think
+        // TODO: work out which command was entered, execute it and return the result
+        // ^^ lol completely ignored that
 
         Player player = map.getPlayer();
         Room currentRoom = map.getCurrentRoom();
@@ -36,16 +37,14 @@ public class Parser {
             if (commandWords.length == 1) {
                 switch(first) {
                     case "look":
-                        System.out.println(currentRoom.getDesc());
-                        break;
+                        return System.out.println(currentRoom.getDesc());
                     case "inventory":
-                        player.showInventory();
-                        break;
+                        return player.showInventory();
                     case "score":
-                        System.out.printf("Your current score is (%d)%n", score.getCurrentScore());
+                        return "Your current score is (" + score.getCurrentScore() + ")";
                         break;
                     case "help": // should help messages be specific to rooms? a possible attribute to add...
-                        help();
+                        return help();
                         break;
                     // case "quit":
                     // case "exit:" // fall through for ||
@@ -71,44 +70,42 @@ public class Parser {
                     case "activate":
                         // run use
                         break;
-                }
+                } // make sure you use returns...
+                // oh i miss my coloured vscode comments
             
             // only valid three word command is talk to npc
             } else if (commandWords.length == 3) {
                 // talk to npc
-                if (currentRoom.getName() == "R2") { // change from hardcode later
-                    System.out.println("A large black cat, resting in a cosy cat bed. It looks up at you as you appraoch.");
-                    sleep();
-                    for (String line : currentRoom.npc.getDia()) {
-                        System.out.printLn(line);
-                        sleep();
-                    }
+                if (currentRoom.getName() == "R2") { // change from hardcoded room later
+                    // change check to currentRoom == Map.getR2()? can you compare objects like that?
+                    return currentRoom.npc.getDia();
                 }
                 
             // any other length is invalid
             } else {
-                invalidCommand();
+                return invalidCommand();
             }
         } else { // misspelling or invalid: reject output
-            invalidCommand();
+            return invalidCommand();
         }
         return null;
     }
 
-    public void invalidCommand() {
-        System.out.println("Sorry, that's not a valid command. Here's a list of valid commands:");
+    public static String invalidCommand() {
+        String format = "Sorry, that's not a valid command. Here's a list of valid commands:\n";
         for (String command : LEGALCOMMANDSFULL) {
-            System.out.println(command); // ^^ for x in array
+            format += (command + "\n"); // ^^ for x in array
         }
     }
 
-    public void help() {
-        System.out.println("Enter a command to continue the game. Here's a list of valid commands:");
+    public static String help() {
+        String format = "Enter a command to continue the game. Here's a list of valid commands:\n";
         for (String command : LEGALCOMMANDSFULL) {
-            System.out.println(command);
+            format += (command + "\n");
         }
     }
 
+    // kinda dont need this any more
     public void sleep() {
         Thread.sleep(1000);
     }

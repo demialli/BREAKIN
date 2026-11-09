@@ -1,7 +1,3 @@
-// this one is pretty much done!!
-// lol not true
-// go define the npc in map!
-
 package org.uob.a1.gameobjects;
 
 public class Npc {
@@ -23,5 +19,12 @@ public class Npc {
         return dialogue;
     }
 
-    // todo: setters
+    // setters
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setDia(String[] dialogue) {
+        this.dialogue = dialogue;
+    }
 }

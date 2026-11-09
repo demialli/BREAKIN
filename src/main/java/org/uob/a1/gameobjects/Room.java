@@ -1,12 +1,12 @@
-import java.util.*;
-
 package org.uob.a1.gameobjects;
+
+import java.util.*; // imports go under package yeah yeah
 
 public class Room {
 
     private String name;
     private String description;
-    private ArrayList<String> exits;
+    public ArrayList<Exit> exits; // just gonna make it public and see what happens
     // each room only has 1 item/npc max, so they dont need to be arrays
     private Item item;
     private Npc npc;
@@ -56,15 +56,15 @@ public class Room {
         return npc;
     }
 
-    public String toString() { 
+    public String toString() { // fun but excessively long formatting
         String format = "Name: " + name + "/nDescription: " + description + "Exits: ";
-        for (String exit : exits) {
+        for (Exit exit : exits) {
             format += (exit.getName() + ", "); 
         }
-        if (item) {
+        if (item != null) {
             format = format.substring(0, format.length() - 2) + "\nItem: " + item.getName();    
         }
-        if (npc) {
+        if (npc != null) {
             format = format.substring(0, format.length() - 2) + "\nNPC: " + npc.getName();
         }
         return format.substring(format.length() - 2);

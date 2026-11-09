@@ -1,56 +1,45 @@
 *OOP Map Game Idea*
 
-Synopsis: You're lost in your friend's new house at a sleepover and you need to find your way back to your room.
-Objective: Get back to your bedroom (R3) before 3am.
+Synopsis: You're a burglar trying to get to a locked safe in a house before the end of the night.
+Objective: Unlock the safe's room (R3) before everyone wakes up at 6am.
 
 *Rooms*
 R0: kitchen
 - Start
 
-R1: hallway
-- Stool here
-- Needed to open bathroom door
+R1: living room
+- Key here
+- Needed to open study
 
-R2: living room (watch here)
-- Watch here
-- Cat NPC here
+R2: hallway (watch here)
+- Pocket watch here
+- Burglar NPC here
 - Guides you to room five
 
-R3: bedroom (needs key to unlock)
+R3: safe (needs diary to unlock)
 - End
-- Game finish upon going to sleep
+- Game finish upon getting to safe
 
-R4: bathroom (needs stool to unlock)
+R4: study (needs key to unlock)
 - Guiding message to R2 if visited first
 - Optional to visit
 
-R5: study (bedroom key here)
-- Bedroom key is in a desk here
+R5: bedroom (diary here)
+- Diary is in a desk here
+- Code to unlock safe in diary
 
 
 *Items*
 ITEM: watch
 - Used to check time
-ITEM_SLOT_0: stool
+ITEM_SLOT_0: key
 - Used to open R4
-ITEM_SLOT_1: key
+ITEM_SLOT_1: diary
 - Used to open R3
-NPC: talking cat
+NPC: burglar
 - Guides you to R5
 
 
 *Mechanisms*
 - Message upon trying to open a locked door
-- Command to check time on watch so player can see how long they have
-
-
-*Other ideas*
-- fnaf 4
-- paradise chateau
-- haunted castle
-- find the somethings
-- cramp simulator
-- sister location
-- looking for a lost item
-- tattletail
-- kitchen/baking
+- Command to check time on pocket watch so player can see how long they have
