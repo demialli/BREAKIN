@@ -35,14 +35,20 @@ public class Main {
             String input = scanner.nextLine();/*.toLowerCase().trim();*/
             
             // handle exit here, otherwise always pass
-            if (input.equals("exit") || input.equals("quit")) { // .equals() for strings
+            // nvm lol
+            /*if (input.equals("exit") || input.equals("quit")) { // .equals() for strings
                 print("> Goodbye!\n");
                 map.setRunning(false);
                 break; // break, not return lol
-            }
+            }*/
             
             String result = Parser.parse(map, input);
-            print(result);
+            if (input.equals("quit") || input.equals("exit")) {
+                print(result);
+                return; // to avoid printing the last >>
+            } else {
+                print(result);
+            }
 
             // checking for ending move
             Exit ending = map.getR1().getExit("north"); // i called it final before whoops
@@ -61,7 +67,7 @@ public class Main {
                 sleep();
                 System.out.print(">> ");
                 String urCode = scanner.nextLine().toLowerCase().trim();
-                if (urCode.equals(map.getPlayer().getCode())) { // correct code
+                if (urCode.equals(map.getCode())) { // correct code
                     map.getCurrentScore().updateMove();
                     map.setCurrentRoom(map.getR3());
                     System.out.printf("You enter the code %s.%n", urCode);

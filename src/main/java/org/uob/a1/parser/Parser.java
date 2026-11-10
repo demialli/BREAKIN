@@ -46,10 +46,11 @@ public class Parser {
                         return help();
                     default:
                         return invalidCommand(); // forgot abt this
-                    // case "quit":
-                    // case "exit:" // fall through for ||
-                        // break;
-                    // ^^ these are handled in main
+                    // exit and quit have to be here too bc the tests ignore main WTV LAST ERROR LETS GOOOO
+                    case "quit":
+                    case "exit":
+                        map.setRunning(false);
+                        return "> Goodbye!\n";
                 }
                 
             // two word commands
@@ -71,11 +72,7 @@ public class Parser {
                         return use(map, player, commandWords);
                         
                     case "talk":
-                        if (input.equals("talk burglar")) {
-                            return talk(map);
-                        } else {
-                            return invalidCommand();
-                        }
+                        return talk(map, input);
                     default:
                         return invalidCommand(); // forgot abt this
                 } // make sure you use returns...
@@ -84,12 +81,8 @@ public class Parser {
             // only valid three word command is talk to npc
             // if they enter it right! lol
             } else if (commandWords.length == 3) {
-                // talk to npc
-                if (input.equals("talk to burglar")) { // shouldnt reallyyy hardcode
-                    return talk(map);
-                } else {
-                    return invalidCommand();
-                }
+                // hardcoding will be my downfall
+                return talk(map, input);
             // any other length is invalid
             } else {
                 return invalidCommand();
@@ -173,6 +166,7 @@ public class Parser {
             }
         } else { // right item
             player.addItem(item);
+            currentRoom.removeItem(); // item has to be removed after picking it up... which means setting it back to null
             return String.format("Acquired %s!", itemName);
         }
     }
@@ -204,12 +198,17 @@ public class Parser {
         }
     }
     
-    private static String talk(Map map) {
+    private static String talk(Map map, String input) {
         Room currentRoom = map.getCurrentRoom();
-        if (currentRoom == map.getR2()) {
-            return currentRoom.getNpc().getDia();
+        Npc npc = currentRoom.getNpc();
+        if (npc != null) { // i knew hardcoding this would be a problem
+            if (input.equals("talk " + npc.getName()) || input.equals("talk to " + npc.getName())) {
+                return currentRoom.getNpc().getDia();
+            } else {
+                return invalidCommand();
+            }
         } else {
-            return "There's nobody here.";
+            return "They're not here.";
         }
     }
 

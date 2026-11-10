@@ -9,7 +9,7 @@ public class Room {
     public ArrayList<Exit> exits = new ArrayList<>(); // just gonna make it public and see what happens
     // each room only has 1 item/npc max, so they dont need to be arrays
     private Item item = null;
-    private Npc npc;
+    private Npc npc = null;
     // ^^ arraylists for variable size
     
     
@@ -24,6 +24,10 @@ public class Room {
 
     public void addItem(Item item) {
         this.item = item;
+    }
+
+    public void removeItem() {
+        this.item = null;
     }
 
     public void addNpc(Npc npc) {

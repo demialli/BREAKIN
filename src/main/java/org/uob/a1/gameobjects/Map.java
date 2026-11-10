@@ -5,9 +5,14 @@ public class Map {
     private Score score = new Score();
     private Player player;
     private Room currentRoom;
-    private boolean running = false;
+    private boolean running = true;
     public Room R0, R1, R2, R3, R4, R5; // need to be global
-    
+
+    private String code = String.format("%04d", (int)(Math.random() * 10000)); // random 4 digit code 
+    // ^^ longer codes to increase difficulty
+    private Item watch;
+    private Item key;
+    private Item diary; 
     
     public Map(Room startingRoom) {
         currentRoom = startingRoom;
@@ -38,7 +43,7 @@ public class Map {
         R2.addExit(new Exit("north", R1, false));
         R2.addExit(new Exit("south", R0, false));
         R2.addExit(new Exit("west", R5, false));
-        R2.addNpc(new Npc("burglar", "Your colleague, who's helping you rob this house.\n< I'm  pretty sure the safe is nearby, but you might've gone in the opposite direction. >\n< There might be something that can help in the next room over. >"));
+        R2.addNpc(new Npc("burglar", "👁  Your colleague, who's helping you rob this house.\n< I'm pretty sure the safe is nearby, but you might've gone in the opposite direction. >\n< There might be something that can help in the next room over. >"));
         
         R3.addExit(new Exit("south", R1, false));
         R4.addExit(new Exit("east", R1, false));
@@ -47,6 +52,38 @@ public class Map {
         
         player = new Player(this); 
         currentRoom = R0;
+        
+        // moving item creation here...
+        watch = new Item(
+            "watch", 
+            "An antique pocket watch. You can hear it ticking softly in the silence.", 
+            R2, // should technically be all, but idk what to do with it for now
+            "You click it open and check the time on its luminescent face.", 
+            "resource", 
+            null);
+        // ^^ what do i put for non item slot items?? theyre used in all rooms...
+        
+        key = new Item(
+            "key", 
+            "A key with on ribbon, used to unlock a study's door.", 
+            R1, 
+            "You turn the key in the lock quietly, unlocking the weathered door.\n> WEST exit unlocked", 
+            "key", 
+            R1.getExit("west"));
+        
+        diary = new Item(
+            "diary", 
+            "A well-loved diary with a hand-painted cover. There might be something important inside.", 
+            R1, 
+            "You flip it open to its bookmarked page, where a code has been hastily scribbled: (" + code + "). That's probably important.\n> NORTH exit unlocked", 
+            "key", 
+            R1.getExit("north"));
+        // need to implement code entering when unlocking R3!
+
+        // add items to rooms
+        R1.addItem(key);
+        R2.addItem(watch);
+        R5.addItem(diary);
     }
     
 
@@ -65,6 +102,10 @@ public class Map {
 
     public Player getPlayer() {
         return player;
+    }
+
+    public String getCode() {
+        return code;
     }
 
     // getters for each room
