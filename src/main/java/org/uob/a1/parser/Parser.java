@@ -2,7 +2,7 @@
 
 package org.uob.a1.parser;
 
-import org.uob.a1.gameobjects.Map;
+import org.uob.a1.gameobjects.*;
 import java.util.Scanner;
 import java.util.Arrays;
 
@@ -37,15 +37,13 @@ public class Parser {
             if (commandWords.length == 1) {
                 switch(first) {
                     case "look":
-                        return System.out.println(currentRoom.getDesc());
+                        return currentRoom.getDesc();
                     case "inventory":
                         return player.showInventory();
                     case "score":
-                        return "Your current score is (" + score.getCurrentScore() + ")";
-                        break;
+                        return String.format("Your current score is (%d)", score.getCurrentScore());
                     case "help": // should help messages be specific to rooms? a possible attribute to add...
                         return help();
-                        break;
                     // case "quit":
                     // case "exit:" // fall through for ||
                         // break;
@@ -57,28 +55,28 @@ public class Parser {
                 // ^^ .attribute for arrays, .method() for strings!
                 switch(first) {
                     case "move":
-                        // run move
-                        break;
+                        return "move direction";
                     case "look":
-                        // run loop
-                        break;
+                        return "look item";
                     case "take":
                     case "get":
-                        // run take
-                        break;
+                        return "get item";
                     case "use": // fall through!
                     case "activate":
-                        // run use
-                        break;
+                        return "use item";
+                    case "talk":
+                        return "talk npc";
                 } // make sure you use returns...
                 // oh i miss my coloured vscode comments
             
             // only valid three word command is talk to npc
             } else if (commandWords.length == 3) {
                 // talk to npc
-                if (currentRoom.getName() == "R2") { // change from hardcoded room later
+                if (currentRoom.getName().equals("R2")) { // change from hardcoded room later
                     // change check to currentRoom == Map.getR2()? can you compare objects like that?
-                    return currentRoom.npc.getDia();
+                    return currentRoom.getNpc().getDia();
+                } else {
+                    return "There's nobody here.";
                 }
                 
             // any other length is invalid
@@ -92,23 +90,25 @@ public class Parser {
     }
 
     public static String invalidCommand() {
-        String format = "Sorry, that's not a valid command. Here's a list of valid commands:\n";
+        String format = "> Sorry, that's not a valid command. Here's a list of valid commands:\n";
         for (String command : LEGALCOMMANDSFULL) {
-            format += (command + "\n"); // ^^ for x in array
+            format += ("\n" + command); // ^^ for x in array
         }
+        return format;
     }
 
     public static String help() {
-        String format = "Enter a command to continue the game. Here's a list of valid commands:\n";
+        String format = "> Enter a command to continue the game. Here's a list of valid commands:";
         for (String command : LEGALCOMMANDSFULL) {
-            format += (command + "\n");
+            format += ("\n" + command);
         }
+        return format;
     }
 
     // kinda dont need this any more
-    public void sleep() {
+    /* public void sleep() {
         Thread.sleep(1000);
-    }
+    } */
 
 }
 

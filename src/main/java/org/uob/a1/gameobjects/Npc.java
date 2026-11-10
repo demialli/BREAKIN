@@ -3,9 +3,9 @@ package org.uob.a1.gameobjects;
 public class Npc {
 
     private String name;
-    private String[] dialogue;
+    private String dialogue;
     
-    public Npc(String name, String[] dialogue) {
+    public Npc(String name, String dialogue) {
         this.name = name;
         this.dialogue = dialogue;
     }
@@ -15,7 +15,7 @@ public class Npc {
         return name;
     }
 
-    public String[] getDia() {
+    public String getDia() {
         return dialogue;
     }
 
@@ -24,7 +24,7 @@ public class Npc {
         this.name = name;
     }
 
-    public void setDia(String[] dialogue) {
+    public void setDia(String dialogue) {
         this.dialogue = dialogue;
     }
 }

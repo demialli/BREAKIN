@@ -5,38 +5,50 @@ import java.util.Arrays;
 
 public class Player {
 
-    private Item watch = new Item(
-        "watch", 
-        "An antique pocket watch. You click it open and notice the face is luminescent - you can vaguely make out the time.", 
-        "all", 
-        "You check the time on the watch.", 
-        "item", 
-        null);
-    // ^^ what do i put for non item slot items??
-
-    private String code = String.format("%04d", (int)(Math.random() * 10000)); // random 4 digit code
+    private Map map;
     
-    private Item key = new Item(
-        "stool", 
-        "A small stool you can use to reach a door handle.", 
-        R1, 
-        "You step on the stool, allowing you to just reach the bathroom door's handle.", 
-        "item_slot", 
-        Map.getR1().exits.get(0));
+    private Item watch;
+    private Item code;
+    private Item key;
+    private Item diary; 
+    private ArrayList<Item> items = new ArrayList<>();
+    // ^^ add existing items to this list as theyre collected
     
-    private Item diary = new Item(
-        "key", 
-        "A key with a ribbon, used to unlock a bedroom door.", 
-        R1, 
-        "You flip it open to its bookmarked page, where a code has been hastily scribbled: (" + code + ")", 
-        "item_slot", 
-        Map.getR1().exits.get(0));
-    // need to implement code entering when unlocking R3!
     
-    private ArrayList<Item> items = new ArrayList<>(); // add existing items to this list as theyre collected
-    
-    public Player() {
+    public Player(Map map) {
         // dont really need to put anything here...
+        // not true!
+        this.map = map;
+        Room R1 = map.getR1();
+        Room R2 = map.getR2();
+        
+        watch = new Item(
+            "watch", 
+            "An antique pocket watch. You click it open and notice the face is luminescent - you can vaguely make out the time.", 
+            R2, // should technically be all, but idk what to do with it for now
+            "You check the time on the watch.", 
+            "item", 
+            null);
+        // ^^ what do i put for non item slot items??
+    
+        String code = String.format("%04d", (int)(Math.random() * 10000)); // random 4 digit code
+        
+        key = new Item(
+            "stool", 
+            "A small stool you can use to reach a door handle.", 
+            R1, 
+            "You step on the stool, allowing you to just reach the bathroom door's handle.", 
+            "item_slot", 
+            R1.exits.get(0));
+        
+        diary = new Item(
+            "key", 
+            "A key with a ribbon, used to unlock a bedroom door.", 
+            R1, 
+            "You flip it open to its bookmarked page, where a code has been hastily scribbled: (" + code + ")", 
+            "item_slot", 
+            R1.exits.get(0));
+        // need to implement code entering when unlocking R3!
     }
 
     public void addItem(Item item) {
@@ -53,6 +65,7 @@ public class Player {
                 return item;
             }
         }
+        return null;
     }
 
     public String showInventory() {
@@ -65,5 +78,9 @@ public class Player {
             }
             return format;
         }
+    }
+
+    public void move(String direction) {
+        // todo
     }
 }

@@ -6,7 +6,7 @@ public class Room {
 
     private String name;
     private String description;
-    public ArrayList<Exit> exits; // just gonna make it public and see what happens
+    public ArrayList<Exit> exits = new ArrayList<>(); // just gonna make it public and see what happens
     // each room only has 1 item/npc max, so they dont need to be arrays
     private Item item;
     private Npc npc;
@@ -46,6 +46,7 @@ public class Room {
                 return exit;
             }
         }
+        return null;
     }
 
     public Item getItem() {
@@ -57,7 +58,7 @@ public class Room {
     }
 
     public String toString() { // fun but excessively long formatting
-        String format = "Name: " + name + "/nDescription: " + description + "Exits: ";
+        String format = "Name: " + name + "\nDescription: " + description + "Exits: ";
         for (Exit exit : exits) {
             format += (exit.getName() + ", "); 
         }
@@ -65,8 +66,8 @@ public class Room {
             format = format.substring(0, format.length() - 2) + "\nItem: " + item.getName();    
         }
         if (npc != null) {
-            format = format.substring(0, format.length() - 2) + "\nNPC: " + npc.getName();
+            format = format + "\nNPC: " + npc.getName();
         }
-        return format.substring(format.length() - 2);
+        return format;
     }
 }

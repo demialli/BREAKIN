@@ -2,12 +2,11 @@ package org.uob.a1.gameobjects;
 
 public class Map {
 
+    private Score score = new Score();
     private Player player;
     private Room currentRoom;
-    private Score score;
-    private boolean running;
+    private boolean running = false;
     public Room R0, R1, R2, R3, R4, R5; // need to be global
-    
     
     
     public Map(Room startingRoom) {
@@ -26,13 +25,13 @@ public class Map {
         R1.addExit(new Exit("NORTH", R1, R3, true));
         R1.addExit(new Exit("SOUTH", R1, R2, false));
         R1.addExit(new Exit("EAST", R1, R0, false));
-        R1.addExit(new Exit("WEST", R1, R4", true));
+        R1.addExit(new Exit("WEST", R1, R4, true));
         
         R2 = new Room("R2", "A long hallway, leading to another room. Your partner in crime is here.");
         R2.addExit(new Exit("NORTH", R2, R1, false));
         R2.addExit(new Exit("SOUTH", R2, R0, false));
         R2.addExit(new Exit("WEST", R2, R5, false));
-        R2.addNpc(new Npc("Burglar", new String[]{"Your colleague, who's helping you rob this house.", "< I'm  pretty sure the safe is nearby, but you might've gone in the opposite direction. >", "< There might be something that can help in the next room over. >"}));
+        R2.addNpc(new Npc("Burglar", "Your colleague, who's helping you rob this house.\n< I'm  pretty sure the safe is nearby, but you might've gone in the opposite direction. >\n< There might be something that can help in the next room over. >"));
         
         R3 = new Room("R3", "When you manage to enter the code in the vault door, it gives way to an enormous room filled floor to ceiling with gold and gemstones. You made it!");
         R3.addExit(new Exit("SOUTH", R3, R1, false));
@@ -46,11 +45,12 @@ public class Map {
         Room[] rooms = new Room[]{R0, R1, R2, R3, R4, R5}; // is this necessary?
         // probs not but i'll keep it for now!
         currentRoom = R0;
+        player = new Player(this);
     }
     
 
     // getters
-    public  boolean isRunning() {
+    public boolean isRunning() {
         return running;
     }
 
@@ -60,6 +60,10 @@ public class Map {
 
     public Score getCurrentScore() {
         return score;
+    }
+
+    public Player getPlayer() {
+        return player;
     }
 
     // getters for each room
@@ -72,7 +76,7 @@ public class Map {
     
 
     // setters
-    public static void setRunning(boolean running) { // has to be static as called in static main
+    public void setRunning(boolean running) {
         this.running = running;
     }
 
