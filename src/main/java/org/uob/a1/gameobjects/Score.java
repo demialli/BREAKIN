@@ -20,6 +20,10 @@ public class Score {
         currentScore += unlockScore;
     }
 
+    public void failScore() {
+        currentScore /= 2;
+    }
+
     // getter
     public int getCurrentScore() {
         return currentScore;

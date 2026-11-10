@@ -41,8 +41,8 @@ public class Parser {
                     case "inventory":
                         return player.showInventory();
                     case "score":
-                        return String.format("Your current score is (%d)", score.getCurrentScore());
-                    case "help": // should help messages be specific to rooms? a possible attribute to add...
+                        return String.format("Your current score is (%d).", score.getCurrentScore());
+                    case "help":
                         return help();
                     // case "quit":
                     // case "exit:" // fall through for ||
@@ -55,29 +55,28 @@ public class Parser {
                 // ^^ .attribute for arrays, .method() for strings!
                 switch(first) {
                     case "move":
-                        return "move direction";
+                        return move(map, player, commandWords);
+                        
                     case "look":
-                        return "look item";
+                        return look(currentRoom, player, commandWords);
+                        
                     case "take":
                     case "get":
-                        return "get item";
+                        return get(currentRoom, player, commandWords);
+                        
                     case "use": // fall through!
                     case "activate":
-                        return "use item";
+                        return use(map, player, commandWords); // todo here
+                        
                     case "talk":
-                        return "talk npc";
+                        return talk(map);
                 } // make sure you use returns...
                 // oh i miss my coloured vscode comments
             
             // only valid three word command is talk to npc
             } else if (commandWords.length == 3) {
                 // talk to npc
-                if (currentRoom.getName().equals("R2")) { // change from hardcoded room later
-                    // change check to currentRoom == Map.getR2()? can you compare objects like that?
-                    return currentRoom.getNpc().getDia();
-                } else {
-                    return "There's nobody here.";
-                }
+                return talk(map);
                 
             // any other length is invalid
             } else {
@@ -90,9 +89,9 @@ public class Parser {
     }
 
     public static String invalidCommand() {
-        String format = "> Sorry, that's not a valid command. Here's a list of valid commands:\n";
+        String format = "> Sorry, that's not a valid command. Here's a list of valid commands:";
         for (String command : LEGALCOMMANDSFULL) {
-            format += ("\n" + command); // ^^ for x in array
+            format += ("\n" + "? " + command); // ^^ for x in array
         }
         return format;
     }
@@ -100,9 +99,114 @@ public class Parser {
     public static String help() {
         String format = "> Enter a command to continue the game. Here's a list of valid commands:";
         for (String command : LEGALCOMMANDSFULL) {
-            format += ("\n" + command);
+            format += ("\n" + "? " + command);
         }
         return format;
+    }
+
+    private static String move(Map map, Player player, String[] commandWords) {
+        String direction = commandWords[1];
+        Room currentRoom = map.getCurrentRoom();
+        
+        if (!directionExists(direction)) {
+            return invalidCommand();
+        } // almost forget checks for second words
+        
+        Exit checkExit = player.move(direction, currentRoom);
+        if (checkExit != null) {
+            if (checkExit.isLocked()) {
+                return "This exit is locked.";
+            } else {
+                map.getCurrentScore().updateMove();
+                map.setCurrentRoom(checkExit.getDestination());
+                String msg = map.getCurrentRoom().getDesc(); // needs to update current room directly from map
+                if (map.getCurrentRoom() != map.getR3()) {
+                    return String.format("You open the door and move %s to a new room.%n👁  %s", direction, msg);
+                } else {
+                    return msg;
+                }
+                
+            }
+        } else { // no exit
+            return "You can't move here.";
+        }
+    }
+    
+    private static String look(Room currentRoom, Player player, String[] commandWords) {
+        String itemName = commandWords[1];
+        if (currentRoom.getItem() == null) {
+            return "There are no items to look at here.";
+        } else if (!currentRoom.getItem().getName().equals(itemName)){
+            if (!itemExists(itemName)) {
+                return invalidCommand();
+            } else {
+                return "That item isn't here.";
+            }
+        } else {
+            return currentRoom.getItem().getDesc();
+        }
+    }
+        
+    private static String get(Room currentRoom, Player player, String[] commandWords) {
+        String itemName = commandWords[1];
+        Item item = currentRoom.getItem();
+        
+        if (item == null) { // no items in room
+            return String.format("There are no items to %s here.", commandWords[0]);
+        } else if (!item.getName().equals(itemName)) { // wrong item
+            if (!itemExists(itemName)) {
+                return invalidCommand();
+            } else {
+                return "That item isn't here.";
+            }
+        } else { // right item
+            player.addItem(item);
+            return String.format("Acquired %s!", itemName);
+        }
+    }
+
+    private static String use(Map map, Player player, String[] commandWords) {
+        String itemName = commandWords[1];
+        Item item = player.getItem(itemName);
+        Room currentRoom = map.getCurrentRoom();
+
+        if (!itemExists(itemName)) {
+            return invalidCommand(); // mistypes
+        } else {
+            if (item == null) {
+                return "You don't have this item yet.";
+            } 
+            Room usedIn = item.getRoomUsedIn();
+            if (usedIn != null && currentRoom != usedIn) { // avoid running for watch which can be used anywhere
+                return "You can't use this here.";
+            }
+            if (item.getType().equals("key")) {
+                Exit target = (Exit) item.getTarget();
+                if (!target.isLocked()) {
+                    return "You've already unlocked this.";
+                }
+                target.setLocked(false);
+            }
+            map.getCurrentScore().updateUnlock();
+            return item.getUsedText();
+        }
+    }
+    
+    private static String talk(Map map) {
+        Room currentRoom = map.getCurrentRoom();
+        if (currentRoom == map.getR2()) {
+            return currentRoom.getNpc().getDia();
+        } else {
+            return "There's nobody here.";
+        }
+    }
+
+    private static boolean directionExists(String direction) {
+        return Arrays.asList("north", "east", "south", "west").contains(direction);
+    }
+
+    private static boolean itemExists(String itemName) {
+        return Arrays.asList("watch", "diary", "key").contains(itemName);
     }
 
     // kinda dont need this any more

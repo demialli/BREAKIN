@@ -8,7 +8,7 @@ public class Room {
     private String description;
     public ArrayList<Exit> exits = new ArrayList<>(); // just gonna make it public and see what happens
     // each room only has 1 item/npc max, so they dont need to be arrays
-    private Item item;
+    private Item item = null;
     private Npc npc;
     // ^^ arraylists for variable size
     
@@ -30,8 +30,7 @@ public class Room {
         this.npc = npc;
     }
 
-    // idk how to do these
-    // todo: finish these!
+    // getters
     public String getName() {
         return name;
     }
@@ -42,11 +41,16 @@ public class Room {
     
     public Exit getExit(String direction) {
         for (Exit exit : exits) {
-            if (exit.getName() == direction) {
+            if (exit.getName().equals(direction)) {
                 return exit;
             }
         }
         return null;
+    }
+
+    // for checking
+    public ArrayList<Exit> getExits() {
+        return exits;
     }
 
     public Item getItem() {
