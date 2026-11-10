@@ -9,7 +9,8 @@ public class Player {
 
     private Map map;
 
-    private String code = String.format("%04d", (int)(Math.random() * 10000)); // random 4 digit code
+    private String code = String.format("%04d", (int)(Math.random() * 10000)); // random 4 digit code 
+    // ^^ longer codes to increase difficulty
     private Item watch;
     private Item key;
     private Item diary; 
@@ -40,7 +41,7 @@ public class Player {
             R1, 
             "You turn the key in the lock quietly, unlocking the weathered door.\n> WEST exit unlocked", 
             "key", 
-            R1.getExit("WEST"));
+            R1.getExit("west"));
         
         diary = new Item(
             "diary", 
@@ -48,7 +49,7 @@ public class Player {
             R1, 
             "You flip it open to its bookmarked page, where a code has been hastily scribbled: (" + code + "). That's probably important.\n> NORTH exit unlocked", 
             "key", 
-            R1.getExit("NORTH"));
+            R1.getExit("north"));
         // need to implement code entering when unlocking R3!
 
         // add items to rooms
@@ -91,6 +92,6 @@ public class Player {
     }
 
     public static Exit move(String direction, Room currentRoom) {
-        return currentRoom.getExit(direction.toUpperCase());
+        return currentRoom.getExit(direction);
     }
 }

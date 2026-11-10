@@ -3,14 +3,12 @@ package org.uob.a1.gameobjects;
 public class Exit {
 
     private String name;
-    private Room source;
     private Room destination;
     private boolean locked;
     private Item key;
     
-    public Exit(String name, Room source, Room destination, boolean locked) {
+    public Exit(String name, Room destination, boolean locked) {
         this.name = name;
-        this.source = source;
         this.destination = destination;
         this.locked = locked;
     }
@@ -24,10 +22,6 @@ public class Exit {
     // getters
     public String getName() {
         return name;
-    }
-
-    public Room getSource() {
-        return source;
     }
 
     public Room getDestination() {
@@ -49,10 +43,6 @@ public class Exit {
     // the more setters i make, the more i realise i'll never really need them...
     public void setName(String name) {
         this.name = name;
-    }
-
-    public void setSource(Room source) {
-        this.source = source;
     }
 
     public void setDestination(Room destination) {

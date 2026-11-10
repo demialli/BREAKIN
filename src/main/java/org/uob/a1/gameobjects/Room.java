@@ -41,7 +41,7 @@ public class Room {
     
     public Exit getExit(String direction) {
         for (Exit exit : exits) {
-            if (exit.getName().equals(direction)) {
+            if (exit.getName().equalsIgnoreCase(direction)) {
                 return exit;
             }
         }
@@ -61,17 +61,38 @@ public class Room {
         return npc;
     }
 
-    public String toString() { // fun but excessively long formatting
-        String format = "Name: " + name + "\nDescription: " + description + "Exits: ";
-        for (Exit exit : exits) {
-            format += (exit.getName() + ", "); 
+    public String toString(Room currentRoom) { // NEW! fun but excessively long formatting
+        String desc = currentRoom.getDesc();
+        String format = String.format("You're in %s. %s%n", currentRoom.getName(), desc);
+        
+        ArrayList<Exit> exits = currentRoom.getExits();
+        int s = exits.size();
+        
+        if (s == 1) {
+            format += String.format("! There's an exit to the %s.", exits.get(0).getName());
+        } else if (s == 2) {
+            format += String.format("! There are exits to the %s and %s.", exits.get(0).getName(), exits.get(1).getName());
+        } else if (s > 2) {
+            format += "! There are exits to the ";
+            for (int i = 0; i < s - 1; i++) {
+                format += exits.get(i).getName() + ", ";
+            }
+            format += String.format("and %s.", exits.get(exits.size() - 1).getName());
         }
+        
+        Item item = currentRoom.getItem();
         if (item != null) {
-            format = format.substring(0, format.length() - 2) + "\nItem: " + item.getName();    
+            format += String.format("%n! There's a %s here.", item.getName());
         }
+        Npc npc = currentRoom.getNpc();
         if (npc != null) {
-            format = format + "\nNPC: " + npc.getName();
+            format += String.format("%n! You can talk to a %s here.", npc.getName());
         }
+        
         return format;
     }
+
+    private static String toTitleCase(String string) {
+        return Character.toUpperCase(string.charAt(0)) + string.substring(1).toLowerCase();
+    } // dont need this...
 }

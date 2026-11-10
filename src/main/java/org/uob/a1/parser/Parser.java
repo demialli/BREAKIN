@@ -1,5 +1,3 @@
-// todo: pass in command calls
-
 package org.uob.a1.parser;
 
 import org.uob.a1.gameobjects.*;
@@ -22,6 +20,7 @@ public class Parser {
         // TODO: work out which command was entered, execute it and return the result
         // ^^ lol completely ignored that
 
+        input = input.toLowerCase().trim(); // this should be here!
         Player player = map.getPlayer();
         Room currentRoom = map.getCurrentRoom();
         Score score = map.getCurrentScore();
@@ -37,13 +36,16 @@ public class Parser {
             if (commandWords.length == 1) {
                 switch(first) {
                     case "look":
-                        return currentRoom.getDesc();
+                        // look is meant to return tostring lol!!
+                        return currentRoom.toString(currentRoom);
                     case "inventory":
                         return player.showInventory();
                     case "score":
                         return String.format("Your current score is (%d).", score.getCurrentScore());
                     case "help":
                         return help();
+                    default:
+                        return invalidCommand(); // forgot abt this
                     // case "quit":
                     // case "exit:" // fall through for ||
                         // break;
@@ -66,18 +68,28 @@ public class Parser {
                         
                     case "use": // fall through!
                     case "activate":
-                        return use(map, player, commandWords); // todo here
+                        return use(map, player, commandWords);
                         
                     case "talk":
-                        return talk(map);
+                        if (input.equals("talk burglar")) {
+                            return talk(map);
+                        } else {
+                            return invalidCommand();
+                        }
+                    default:
+                        return invalidCommand(); // forgot abt this
                 } // make sure you use returns...
                 // oh i miss my coloured vscode comments
             
             // only valid three word command is talk to npc
+            // if they enter it right! lol
             } else if (commandWords.length == 3) {
                 // talk to npc
-                return talk(map);
-                
+                if (input.equals("talk to burglar")) { // shouldnt reallyyy hardcode
+                    return talk(map);
+                } else {
+                    return invalidCommand();
+                }
             // any other length is invalid
             } else {
                 return invalidCommand();
@@ -85,7 +97,7 @@ public class Parser {
         } else { // misspelling or invalid: reject output
             return invalidCommand();
         }
-        return null;
+        // return null; dont need this ig
     }
 
     public static String invalidCommand() {

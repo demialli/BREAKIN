@@ -32,7 +32,7 @@ public class Main {
 
         // main loop
         while (map.isRunning()) {
-            String input = scanner.nextLine().toLowerCase().trim();
+            String input = scanner.nextLine();/*.toLowerCase().trim();*/
             
             // handle exit here, otherwise always pass
             if (input.equals("exit") || input.equals("quit")) { // .equals() for strings
@@ -45,7 +45,7 @@ public class Main {
             print(result);
 
             // checking for ending move
-            Exit ending = map.getR1().getExit("NORTH"); // i called it final before whoops
+            Exit ending = map.getR1().getExit("north"); // i called it final before whoops
             if (map.getCurrentRoom() == map.getR1() && ending != null && !ending.isLocked()) {
                 // 5 seconds to memorise the code... is that too short?
                 for (int i = 0; i < 5; i++) {
