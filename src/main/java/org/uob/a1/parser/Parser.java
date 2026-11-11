@@ -20,7 +20,7 @@ public class Parser {
         // TODO: work out which command was entered, execute it and return the result
         // ^^ lol completely ignored that
 
-        input = input.toLowerCase().trim(); // this should be here!
+        input = stripInput(input); // this should be here!
         Player player = map.getPlayer();
         Room currentRoom = map.getCurrentRoom();
         Score score = map.getCurrentScore();
@@ -218,6 +218,10 @@ public class Parser {
 
     private static boolean itemExists(String itemName) {
         return Arrays.asList("watch", "diary", "key").contains(itemName);
+    }
+
+    public static String stripInput(String text) {
+        return text.toLowerCase().trim().replaceAll("[^a-zA-Z ]", "");
     }
 
     // kinda dont need this any more

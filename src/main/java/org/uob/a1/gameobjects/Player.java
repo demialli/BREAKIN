@@ -9,8 +9,7 @@ public class Player {
 
     private Map map;
     private ArrayList<Item> items = new ArrayList<>();
-    // ^^ add existing items to this list as theyre collected
-    
+    // ^^ add existing items to this list as theyre collected    
     
     public Player(Map map) {
         // dont really need to put anything here...
@@ -40,9 +39,9 @@ public class Player {
         if (items.isEmpty()) {
             return "Your inventory is empty.";
         } else {
-            String format = "Items in your inventory [" + items.size() + "]:\n";
+            String format = String.format("Items in your inventory [%d/3]:", items.size());
             for (Item item : items) {
-                format += ((items.indexOf(item) + 1) + ": " + item.getName() + "\n");
+                format += String.format("%n%d: %s", items.indexOf(item) + 1, item.getName());
             }
             return format;
         }

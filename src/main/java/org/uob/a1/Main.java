@@ -7,47 +7,36 @@ import java.util.Scanner;
 
 public class Main {
 
+    static int endings = 0;
+    
     // needs this throws interruptedexception bc java is annoying
     public static void main(String[] args) throws InterruptedException {
         // TODO: start the game and keep requesting user input until they quit
 
         // object declarations
         Scanner scanner = new Scanner(System.in);
-        Map map = new Map();
-        map.setRunning(true); // case! careful when naming instances after classes you fool
-
-        // intro
-        print("> After weeks of planning and staking out a mansion, you've decided tonight is the night to make your move and break into the safe.");
-        sleep();
-        
-        print("> Unfortunately, after some minor setbacks, you've arrived later than you were planning.");
-        sleep();
-        
-        print("> But, it's now or never. You've managed to break in quietly through an open window in the kitchen. You have one hour to make it to the safe before the owners wake up.");
-        sleep();
-        
-        System.out.print("\n> What will you do? \n>> ");
+        // put in a method so i can reset the game in the loop
+        Map map = resetGame();
 
         // todo: help message if no command entered after a certain time
+        // next milestone...
 
         // main loop
         while (map.isRunning()) {
-            String input = scanner.nextLine();/*.toLowerCase().trim();*/
+            String input = stripInput(scanner.nextLine()); // still needs checking lol
             
             // handle exit here, otherwise always pass
             // nvm lol
-            /*if (input.equals("exit") || input.equals("quit")) { // .equals() for strings
-                print("> Goodbye!\n");
-                map.setRunning(false);
-                break; // break, not return lol
-            }*/
             
             String result = Parser.parse(map, input);
             if (input.equals("quit") || input.equals("exit")) {
-                print(result);
+                System.out.println(result);
                 return; // to avoid printing the last >>
             } else {
-                print(result);
+                System.out.println(result);
+            }
+            if (!map.isRunning()) {
+                return; // check for quitting
             }
 
             // checking for ending move
@@ -58,75 +47,121 @@ public class Main {
                     print(".");
                     Thread.sleep(1000);
                 }
+                
                 System.out.print("\033[H\033[2J");
                 System.out.flush(); // clear console >:)
                 
                 print("> Finally, you've made it to the door of the safe you came here for. Everything depends on this.");
-                sleep();
                 print("> You see a number keypad next to the door. It must need that code you saw earlier! Now what was it?\n");
-                sleep();
                 System.out.print(">> ");
+                
                 String urCode = scanner.nextLine().toLowerCase().trim();
                 if (urCode.equals(map.getCode())) { // correct code
                     map.getCurrentScore().updateMove();
                     map.setCurrentRoom(map.getR3());
                     System.out.printf("You enter the code %s.%n", urCode);
                     sleep();
-                    print("A second passes, then two, then the keypad beeps green, and the safe door groans open.");
-                    sleep();
+                    
+                    printOn("A second passes, ");
+                    printOn("then two, ");
+                    printOn("then the keypad beeps green, and the safe door groans open.\n");
                     print("You push open the door, and step inside, and you can't believe it.");
-                    sleep();
-                    print("It's an enormous room filled floor to ceiling with gold and gemstones.\n");
-                    sleep();
+                    print("💎  It's an enormous room filled floor to ceiling with gold and gemstones. 🪎\n"); // i love emojis
                     print(map.getCurrentRoom().getDesc());
                     sleep();
-                    print("GOOD ENDING");
+                    
+                    if (endings < 2) {
+                        endings++;
+                    }
+                    System.out.printf("GOOD ENDING (%d/2)%n", endings);
                     System.out.printf("FINAL SCORE: %d%n", map.getCurrentScore().getCurrentScore());
                     // at some point, add time left for score multiplier?
-                    map.setRunning(false);
-                    return;
-                } else if (urCode.equals("quit") || urCode.equals("exit")) { // quit or exit for whatever reason
-                    print("> Goodbye!\n");
+                    
+                } else if (urCode.equals("quit") || urCode.equals("exit")) { // quit or exit here if u want
+                    System.out.println("> Goodbye!\n");
                     map.setRunning(false);
                     break;
+                    
                 } else { // WRONG code
                     ending.setLocked(true); // not really necessary but it's funny to imagine irl
                     System.out.printf("You enter the code %s.%n", urCode);
                     sleep();
-                    print("A second passes, then two, then the keypad starts flashing red and beeping loudly.");
-                    sleep();
+                    
+                    printOn("A second passes, ");
+                    printOn("then two, ");
+                    printOn("then the starts flashing red and beeping loudly.\n");
                     print("Wrong code! You've set off the home's alarm system!");
                     map.getCurrentScore().failScore();
                     // update with try to escape in a short amount of time?
-                    sleep();
                     print("Good luck getting out!\n");
-                    sleep();
-                    print("BAD ENDING");
+                    
+                    if (endings < 2) {
+                        endings++;
+                    }
+                    System.out.printf("BAD ENDING (%d/2)%n", endings);
                     System.out.printf("FINAL SCORE: %d%n", map.getCurrentScore().getCurrentScore());
+                }
+                
+                System.out.print("\n> Play again? (y/n)\n>> ");
+                input = stripInput(scanner.nextLine());
+                
+                if (input.toLowerCase().equals("y")) {
+                    print("Resetting...");
+                    map = resetGame();
+                    sleep();
+                    continue;
+                } else {
+                    print("> Goodbye!\n");
                     map.setRunning(false);
                     return;
                 }
             }
 
-            System.out.print("\n>> ");
-                /* if (result instanceof String[] lines) { // checks for same type
-                    for (String line : lines) {
-                        System.out.println(line);
-                        Thread.sleep(1000);
-                    }
-                } else {
-                    // else print as normal
-                    System.out.println(result);
-                } */ // needs to return String always :/
+            if (map.isRunning()) { // I GOT IT
+                System.out.print("\n>> "); // prompter
+            }
         }
     }
 
+    public static String stripInput(String text) {
+        return text.toLowerCase().trim().replaceAll("[^a-zA-Z ]", "");
+    }
+    
     public static void sleep() throws InterruptedException {
         Thread.sleep(2000);
     }
 
-    public static void print(String text) { // i miss python
+    public static void sleep1() throws InterruptedException {
+        Thread.sleep(1000);
+    }
+
+    public static void print(String text) throws InterruptedException { // i miss python
         System.out.println(text);
+        sleep();
+    }
+
+    public static void printOn(String text) throws InterruptedException {
+        System.out.print(text);
+        sleep1();
+    }
+
+    public static Map resetGame() throws InterruptedException {
+        Map map = new Map();
+        Player player = map.getPlayer();
+        map.setRunning(true); // case! careful when naming instances after classes
+
+        // intro
+        print("\n> After weeks of planning and staking out a mansion, you've decided tonight is the night to make your move and break into the safe.");
+        
+        print("> Unfortunately, after some minor setbacks, you've arrived later than you were planning.");
+        
+        print("> But, it's now or never. You've managed to break in quietly through an open window in the kitchen.");
+        
+        print("> You have one hour to make it to the safe before the owners wake up.");
+
+        System.out.println("\n> Welcome to BREAKIN!");
+        System.out.print("> What will you do? \n\n>> ");
+        return map;
     }
 
 }
