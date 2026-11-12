@@ -157,7 +157,7 @@ public class Parser {
         Item item = currentRoom.getItem();
 
         if (!itemExists(itemName)) {
-            return "That item doesn't exist."
+            return "That item doesn't exist.";
         } else {
             if (item == null) { // no items in room
                 return String.format("There are no items to %s here.", commandWords[0]);
