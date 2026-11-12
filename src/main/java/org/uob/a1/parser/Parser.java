@@ -155,19 +155,20 @@ public class Parser {
     private static String get(Room currentRoom, Player player, String[] commandWords) {
         String itemName = commandWords[1];
         Item item = currentRoom.getItem();
-        
-        if (item == null) { // no items in room
-            return String.format("There are no items to %s here.", commandWords[0]);
-        } else if (!item.getName().equals(itemName)) { // wrong item
-            if (!itemExists(itemName)) {
-                return invalidCommand();
-            } else {
-                return "That item isn't here.";
+
+        if (!itemExists(itemName)) {
+            return "That item doesn't exist."
+        } else {
+            if (item == null) { // no items in room
+                return String.format("There are no items to %s here.", commandWords[0]);
+            } else if (!item.getName().equals(itemName) && itemExists(itemName)) { // wrong existing item
+                    return "That item isn't here.";
+                }
+            } else { // right item
+                player.addItem(item);
+                currentRoom.removeItem(); // item has to be removed after picking it up... which means setting it back to null
+                return String.format("Acquired %s!", itemName);
             }
-        } else { // right item
-            player.addItem(item);
-            currentRoom.removeItem(); // item has to be removed after picking it up... which means setting it back to null
-            return String.format("Acquired %s!", itemName);
         }
     }
 
@@ -177,7 +178,7 @@ public class Parser {
         Room currentRoom = map.getCurrentRoom();
 
         if (!itemExists(itemName)) {
-            return invalidCommand(); // mistypes
+            return "That item doesn't exist."; // mistypes
         } else {
             if (item == null) {
                 return "You don't have this item yet.";
