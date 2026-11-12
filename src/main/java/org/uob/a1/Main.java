@@ -44,8 +44,7 @@ public class Main {
             if (map.getCurrentRoom() == map.getR1() && ending != null && !ending.isLocked()) {
                 // 5 seconds to memorise the code... is that too short?
                 for (int i = 0; i < 5; i++) {
-                    print(".");
-                    Thread.sleep(1000);
+                    printOn(".");
                 }
                 
                 System.out.print("\033[H\033[2J");
