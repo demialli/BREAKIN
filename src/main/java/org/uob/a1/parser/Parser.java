@@ -163,7 +163,6 @@ public class Parser {
                 return String.format("There are no items to %s here.", commandWords[0]);
             } else if (!item.getName().equals(itemName) && itemExists(itemName)) { // wrong existing item
                     return "That item isn't here.";
-                }
             } else { // right item
                 player.addItem(item);
                 currentRoom.removeItem(); // item has to be removed after picking it up... which means setting it back to null
